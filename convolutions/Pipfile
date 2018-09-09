@@ -1,0 +1,16 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+scikit-image = "*"
+numpy = "*"
+opencv-python = "*"
+
+
+[dev-packages]
+
