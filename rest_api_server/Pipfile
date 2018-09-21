@@ -12,6 +12,7 @@ keras = "*"
 tensorflow = "*"
 flask = "*"
 pillow = "*"
+scikit-learn = "*"
 
 
 [dev-packages]

@@ -5,11 +5,13 @@ import flask
 from keras.preprocessing.image import img_to_array
 from keras.models import load_model
 import numpy as np
+import pickle
 from PIL import Image
 
 
 app = flask.Flask(__name__)
 model = None
+lb = None
 classes = ['cats', 'dogs', 'panda']
 
 
@@ -34,7 +36,11 @@ def predict():
 
         results = model.predict(image)
 
-        data['prediction'] = {
+        i = results.argmax(axis=1)[0]
+        label = lb.classes_[i]
+
+        data['prediction'] = label
+        data['class_probabilites'] = {
             label: str(prob) for label, prob in zip(classes, results[0])
         }
         data['success'] = True
@@ -43,5 +49,10 @@ def predict():
 
 
 if __name__ == '__main__':
-    model = load_model('../cnn.h5')
+    model = load_model('../output/cnn.h5')
+
+    f = open('../output/label-bins.pkl', 'rb')
+    lb = pickle.load(f)
+    f.close()
+
     app.run(debug=False, threaded=False)
