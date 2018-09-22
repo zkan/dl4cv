@@ -12,7 +12,7 @@ from PIL import Image
 app = flask.Flask(__name__)
 model = None
 lb = None
-classes = ['cats', 'dogs', 'panda']
+classes = None
 
 
 def prepare_image(image):
@@ -54,5 +54,7 @@ if __name__ == '__main__':
     f = open('../output/label-bins.pkl', 'rb')
     lb = pickle.load(f)
     f.close()
+
+    classes = lb.classes_
 
     app.run(debug=False, threaded=False)
